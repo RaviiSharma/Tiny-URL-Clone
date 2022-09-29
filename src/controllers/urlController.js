@@ -1,9 +1,7 @@
 const UrlModel = require("../models/urlModel")
 const ShortId = require("shortid")
 
-
-
-//====================================================================//
+//================================= validation ===================================//
 const isValid = function(value) {
     if (typeof value == "undefined" || value == null) return false;
     if (typeof value == "string" && value.trim().length > 0) return true;
@@ -17,11 +15,13 @@ const isValidRequest = function(object) {
 // using regex for validating url
 const isValidUrl = function(value) {
     let regexForUrl =
-        /(:?^((https|http|HTTP|HTTPS){1}:\/\/)(([w]{3})[\.]{1})?([a-zA-Z0-9]{1,}[\.])[\w]((\/){1}([\w@?^=%&amp;~+#-_.]+)))$/;
+    /(:?^((https|http|HTTP|HTTPS){1}:\/\/)(([w]{3})[\.]{1})?([a-zA-Z0-9]{1,}[\.])[\w]*((\/){1}([\w@?^=%&amp;~+#-_.]+))*)$/;
+
     return regexForUrl.test(value);
 };
-//=================================================================================//
-const urlShortener = async function(req, res) {
+//================================ createUrl =================================================//
+
+const urlShortner = async function(req, res) {
     try{
     const requestBody = req.body;
     
@@ -43,7 +43,11 @@ const urlShortener = async function(req, res) {
     if (!isValidUrl(longUrl)) {
         return res.status(400).send({ status: false, message: "Enter a valid URL" });
     }
-    
+    const duplicateUrl = await UrlModel.findOne({ longUrl: longUrl }).select({ longUrl: 1, shortUrl: 1, urlCode: 1, _id: 0 })
+    if (duplicateUrl) {
+        return res.status(409).send({ status: true,msg:"longUrl already exists", data: duplicateUrl }) //check the status code later
+    }
+
         const urlCode = ShortId.generate().toLowerCase();
         const shortUrl = base + "/" + urlCode;
 
@@ -55,10 +59,9 @@ const urlShortener = async function(req, res) {
 
         return res.status(201).send({status: true,message: "url shorten successfully",data: saveData});
     
+    
 } catch (err) {
         res.status(500).send({ error: err.message });
     }
-
-   
 }
-module.exports = { urlShortener}
+module.exports = { urlShortner}
