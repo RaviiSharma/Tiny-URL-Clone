@@ -39,11 +39,7 @@ redisClient.on("connect", async function () {
   console.log("Connected to Redis..");
 });
 
-//1. connect to the server
-//2. use the commands :
-
 //Connection setup for redis
-
 const SET_ASYNC = promisify(redisClient.SET).bind(redisClient);
 const GET_ASYNC = promisify(redisClient.GET).bind(redisClient);
 
@@ -155,7 +151,7 @@ const urlShortner = async function (req, res) {
     const urlDataFromCache = await GET_ASYNC(urlCode);
 
     if (urlDataFromCache) {
-      return res.status(302).redirect(urlDataFromCache);
+      return res.status(302).redirect(JSON.parse (urlDataFromCache).longUrl);
     } else {
       // If cache miss, lets check in our DB, if available then populate the cache
       const urlDataByUrlCode = await UrlModel.findOne({ urlCode });
@@ -166,7 +162,7 @@ const urlShortner = async function (req, res) {
           .send({ status: false, message: "no such url exist" });
       }
 
-      const addingUrlDataInCache = SET_ASYNC(urlCode, urlDataByUrlCode.longUrl);
+      const addingUrlDataInCache = SET_ASYNC(urlCode, JSON.stringify( urlDataByUrlCode.longUrl), "EX",10);
 
       // if we found the document by urlCode then redirecting the user to original url
       return res.status(302).redirect(urlDataByUrlCode.longUrl);
