@@ -5,7 +5,7 @@ const router = express.Router()
 
 
 // API for url shortening 
-router.post('/url/shorten', UrlController.urlShortner )
+router.post('/url/shorten', UrlController. urlShortener )
 
 router.get("/:urlCode", UrlController.getUrl)
 
