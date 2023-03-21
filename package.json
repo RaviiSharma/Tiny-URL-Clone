@@ -1,33 +1,34 @@
 {
-  "name": "project4-urlshortnergroup41",
+  "name": "project4",
   "description": "",
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    
+      "start": "nodemon index.js"
+   
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/RaviiSharma/project4-urlShortnerGroup41.git"
+    "url": "git+https://github.com/RaviiSharma/Tiny-URL-Website.git"
   },
-  "author": "Ravi Kumar Sharma, Hunny, Shubham, Rahul Kumar ",
-  "license": "ISC",
+  "author": "Ravi Kumar Sharma",
+  "license": "MIT",
   "bugs": {
-    "url": "https://github.com/RaviiSharma/project4-urlShortnerGroup41/issues"
+    "url": "git+https://github.com/RaviiSharma/Tiny-URL-Website.git"
   },
-  "homepage": "https://github.com/RaviiSharma/project4-urlShortnerGroup41#readme",
+  "homepage": "https://github.com/RaviiSharma/Tiny-URL-Website#readme",
   "dependencies": {
    
-    "body-parser": "^1.20.0",
     "express": "^4.18.1",
     "mongoose": "^6.6.2",
     "nodemon": "^2.0.20",
-    "redis": "^3.1.2",
+    "redis": "3.1.2",
     "shortid": "^2.2.16",
     "util": "^0.12.4",
-    "axios": "^0.27.2",
     "valid-url": "^1.0.9"
-
+  
 
    
    
