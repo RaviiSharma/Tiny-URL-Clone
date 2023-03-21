@@ -1,9 +1,9 @@
 const express = require('express')
-const {urlShortener, getUrl} = require('../controllers/urlController')
+const {urlShort, getUrl} = require('../controllers/urlController')
 const router = express.Router()
 
 // API for url shortening 
-router.post('/url/shorten',urlShortener  )
+router.post('/url/shorten',urlShort  )
 
 router.get("/:urlCode",getUrl)
 

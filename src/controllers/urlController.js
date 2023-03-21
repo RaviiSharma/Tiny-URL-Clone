@@ -31,7 +31,7 @@ const GET_ASYNC = promisify(redisClient.GET).bind(redisClient);
 
 let baseUrl = 'http://localhost:3000'
 
-const urlShortener = async (req,res)=>{
+const urlShort = async (req,res)=>{
 
 try{
     let data =req.body
@@ -102,6 +102,6 @@ const getUrl = async (req,res)=>{
         return res.status(500).send({status : false, message : err.message})
     }
 }
-module.exports = {urlShortener, getUrl }
+module.exports = {urlShort, getUrl }
 
 
