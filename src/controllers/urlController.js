@@ -3,7 +3,7 @@ const urlModel = require('../models/urlModel')
 const shortID = require('shortid')
 const redis = require('redis');
 
-//const {isValidUrl} = require('../utils/validation')
+
 const {promisify} = require('util')
 
 //Connect to redis
@@ -102,7 +102,6 @@ const getUrl = async (req,res)=>{
         return res.status(500).send({status : false, message : err.message})
     }
 }
-
-module.exports = {urlShortener,getUrl }
+module.exports = {urlShortener, getUrl }
 
 
